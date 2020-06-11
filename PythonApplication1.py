@@ -14,34 +14,23 @@ class Main(Frame):
 
     def startUI(self, name, bg_hex):
 
+        def create_game_button(image, click_value, x, width, y=200, height=120):
+            btn = Button(root_start, image=image,
+                         command=lambda x=click_value: self.btn_click(x))
+            btn.image = image
+            btn.place(x=x, y=y, width=width, height=height)
+
         image = Image.open("images/rock.png")
         photo = ImageTk.PhotoImage(image)
-
-        btn = Button(root_start, text="Камень", image=photo, font=("Times New Roman", 15),
-                     command=lambda x=1: self.btn_click(x))
-        btn.image = photo
-
-        # def create_game_button(image, click_value):
-        #     btn = Button(root_start, image=image,
-        #                  command=lambda x=click_value: self.btn_click(x))
-        #     btn.image = image
-
+        create_game_button(photo, 1, 30, 125)
 
         image = Image.open("images/scissors.png")
         photo = ImageTk.PhotoImage(image)
-        btn2 = Button(root_start, text="Ножницы", image=photo, font=("Times New Roman", 15),
-                      command=lambda x=2: self.btn_click(x))
-        btn2.image = photo
+        create_game_button(photo, 2, 170, 168)
 
         image = Image.open("images/paper.png")
         photo = ImageTk.PhotoImage(image)
-        btn3 = Button(root_start, text="Бумага", image=photo, font=("Times New Roman", 15),
-                      command=lambda x=3: self.btn_click(x))
-        btn3.image = photo
-
-        btn.place(x=30, y=200, width=125, height=120)
-        btn2.place(x=170, y=200, width=168, height=120)
-        btn3.place(x=350, y=200, width=116, height=120)
+        create_game_button(photo,3, 350, 116)
 
         self.lbl = Label(root_start, text="Привет, " + name + "!",
                          font=("Times New Roman", 22, "bold"), bg=bg_hex)
