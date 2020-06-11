@@ -3,6 +3,7 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 from tkinter.ttk import Radiobutton
 import random as rdm
+from PIL import Image, ImageTk
 
 class Main(Frame):
     def __init__(self, main, name, bg_hex):
@@ -13,8 +14,12 @@ class Main(Frame):
 
     def startUI(self, name, bg_hex):
 
-        btn = Button(root_start, text="Камень", font=("Times New Roman", 15),
+        image = Image.open("paperResized.png")
+        photo = ImageTk.PhotoImage(image)
+
+        btn = Button(root_start, text="Камень", image=photo, font=("Times New Roman", 15),
                      command=lambda x=1: self.btn_click(x))
+        btn.image = photo
         btn2 = Button(root_start, text="Ножницы", font=("Times New Roman", 15),
                       command=lambda x=2: self.btn_click(x))
         btn3 = Button(root_start, text="Бумага", font=("Times New Roman", 15),
