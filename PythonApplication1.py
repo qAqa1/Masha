@@ -14,20 +14,34 @@ class Main(Frame):
 
     def startUI(self, name, bg_hex):
 
-        image = Image.open("paperResized.png")
+        image = Image.open("images/rock.png")
         photo = ImageTk.PhotoImage(image)
 
         btn = Button(root_start, text="Камень", image=photo, font=("Times New Roman", 15),
                      command=lambda x=1: self.btn_click(x))
         btn.image = photo
-        btn2 = Button(root_start, text="Ножницы", font=("Times New Roman", 15),
-                      command=lambda x=2: self.btn_click(x))
-        btn3 = Button(root_start, text="Бумага", font=("Times New Roman", 15),
-                      command=lambda x=3: self.btn_click(x))
 
-        btn.place(x=30, y=200, width=120, height=50)
-        btn2.place(x=190, y=200, width=120, height=50)
-        btn3.place(x=350, y=200, width=120, height=50)
+        # def create_game_button(image, click_value):
+        #     btn = Button(root_start, image=image,
+        #                  command=lambda x=click_value: self.btn_click(x))
+        #     btn.image = image
+
+
+        image = Image.open("images/scissors.png")
+        photo = ImageTk.PhotoImage(image)
+        btn2 = Button(root_start, text="Ножницы", image=photo, font=("Times New Roman", 15),
+                      command=lambda x=2: self.btn_click(x))
+        btn2.image = photo
+
+        image = Image.open("images/paper.png")
+        photo = ImageTk.PhotoImage(image)
+        btn3 = Button(root_start, text="Бумага", image=photo, font=("Times New Roman", 15),
+                      command=lambda x=3: self.btn_click(x))
+        btn3.image = photo
+
+        btn.place(x=30, y=200, width=125, height=120)
+        btn2.place(x=170, y=200, width=168, height=120)
+        btn3.place(x=350, y=200, width=116, height=120)
 
         self.lbl = Label(root_start, text="Привет, " + name + "!",
                          font=("Times New Roman", 22, "bold"), bg=bg_hex)
@@ -154,7 +168,7 @@ if __name__ == '__main__':
     root_start.withdraw()
     root_start.protocol("WM_DELETE_WINDOW", on_closing)
     root_start.iconbitmap("py.ico")
-    root_start.geometry("500x300+200+200")
+    root_start.geometry("500x350+200+200")
     root_start.title("Игра началась...")
     root_start.resizable(False, False)
 
