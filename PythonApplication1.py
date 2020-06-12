@@ -18,12 +18,12 @@ class Main(Frame):
 
     def startUI(self, name, bg_hex):
 
-        orig_color = (255, 255, 255)
-        replacement_color = (250, 255, 255)
-        img = Image.open("images\\rock.png").convert('RGB')
+        orig_color = (255, 255, 255, 255)
+        replacement_color = (250, 0, 255, 255)
+        img = Image.open("images\\rock.png").convert('RGBA')
         data = np.array(img)
         data[(data == orig_color).all(axis=-1)] = replacement_color
-        img2 = Image.fromarray(data, mode='RGB')
+        img2 = Image.fromarray(data, mode='RGBA')
         img2.show()
 
         def create_game_button(image, click_value, x, width, y=200, height=120):
