@@ -6,8 +6,10 @@ import random as rdm
 
 import numpy as np
 from PIL import Image, ImageTk
+from os import path
 import sys
 
+replacement_color = (250, 0, 0, 255)
 
 class Main(Frame):
     def __init__(self, main, name, bg_hex):
@@ -16,15 +18,25 @@ class Main(Frame):
         self.main = main
         self.startUI(name, bg_hex)
 
+
     def startUI(self, name, bg_hex):
-        border = 127
-        orig_color = (border, border, border, 0)
-        replacement_color = (250, 0, 0, 255)
-        img = Image.open("images\\rock.png").convert('RGBA')
-        data = np.array(img)
-        data[(data > orig_color).all(axis=-1)] = replacement_color
-        img2 = Image.fromarray(data, mode='RGBA')
-        img2.show()
+
+
+
+        rock_image_path = path.join('images', 'rock.png')
+        scissors_image_path = path.join('images', 'scissors.png')
+        paper_image_path = path.join('images', 'paper.png')
+
+
+        def ColoredImge(image_path):
+            global replacement_color
+            border = 127
+            orig_color = (border, border, border, 0)
+            img = Image.open(image_path).convert('RGBA')
+            data = np.array(img)
+            data[(data > orig_color).all(axis=-1)] = replacement_color
+            return ImageTk.PhotoImage(Image.fromarray(data, mode='RGBA'))
+
 
         def create_game_button(image, click_value, x, width, y=200, height=120):
             btn = Button(root_start, image=image,
@@ -32,17 +44,9 @@ class Main(Frame):
             btn.image = image
             btn.place(x=x, y=y, width=width, height=height)
 
-        image = Image.open("images/rock.png")
-        photo = ImageTk.PhotoImage(img2)
-        create_game_button(photo, 1, 30, 125)
-
-        image = Image.open("images/scissors.png")
-        photo = ImageTk.PhotoImage(image)
-        create_game_button(photo, 2, 170, 168)
-
-        image = Image.open("images/paper.png")
-        photo = ImageTk.PhotoImage(image)
-        create_game_button(photo, 3, 350, 116)
+        create_game_button(ColoredImge(rock_image_path), 1, 30, 125)
+        create_game_button(ColoredImge(scissors_image_path), 2, 170, 168)
+        create_game_button(ColoredImge(paper_image_path), 3, 350, 116)
 
         # img = Image.open(sys.argv[1])
         # img = img.convert("RGBA")
