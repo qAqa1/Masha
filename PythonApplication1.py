@@ -138,14 +138,25 @@ class Hello(Frame):
         colorTitle_Label = Label(root_hello, text="Цвет рук:", font=("Times New Roman", 14))
         colorTitle_Label.place(x=130, y=210)
 
-        R_Label = Label(root_hello, text="R =", font=("Times New Roman", 14))
-        R_Label.place(x=130, y=240)
+        def create_RGB_input(title, x_location):
+            y_location = 240
+            label = Label(root_hello, text=title+" =", font=("Times New Roman", 14))
+            label.place(x=x_location, y=y_location)
 
-        R_TextBox = Text(root_hello, width=3, height=1,
-                         font=("Times New Roman", 14), wrap="none")
+            textBox = Text(root_hello, width=3, height=1,
+                             font=("Times New Roman", 14), wrap="none")
 
-        R_TextBox.insert(INSERT, random_RGB_str())
-        R_TextBox.place(x=170, y=240)
+            textBox.insert(INSERT, random_RGB_str())
+            textBox.place(x=x_location+40, y=y_location)
+
+        def x_RGB_input_location(number):
+            start_x = 130
+            offset = 80
+            return start_x + offset * number
+
+        create_RGB_input('R', x_RGB_input_location(0))
+        create_RGB_input('G', x_RGB_input_location(1))
+        create_RGB_input('B', x_RGB_input_location(2))
 
         def startGame_click():
             input_text = self.inputNameTextBox.get(1.0, END).replace('\n', '')
