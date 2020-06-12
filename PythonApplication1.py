@@ -11,6 +11,7 @@ import sys
 
 replacement_color = (250, 0, 0, 255)
 
+
 class Main(Frame):
     def __init__(self, main, name, bg_hex):
         super().__init__()
@@ -18,17 +19,13 @@ class Main(Frame):
         self.main = main
         self.startUI(name, bg_hex)
 
-
     def startUI(self, name, bg_hex):
-
-
 
         rock_image_path = path.join('images', 'rock.png')
         scissors_image_path = path.join('images', 'scissors.png')
         paper_image_path = path.join('images', 'paper.png')
 
-
-        def ColoredImge(image_path):
+        def colored_imge(image_path):
             global replacement_color
             border = 127
             orig_color = (border, border, border, 0)
@@ -37,30 +34,15 @@ class Main(Frame):
             data[(data > orig_color).all(axis=-1)] = replacement_color
             return ImageTk.PhotoImage(Image.fromarray(data, mode='RGBA'))
 
-
         def create_game_button(image, click_value, x, width, y=200, height=120):
             btn = Button(root_start, image=image,
                          command=lambda x=click_value: self.btn_click(x))
             btn.image = image
             btn.place(x=x, y=y, width=width, height=height)
 
-        create_game_button(ColoredImge(rock_image_path), 1, 30, 125)
-        create_game_button(ColoredImge(scissors_image_path), 2, 170, 168)
-        create_game_button(ColoredImge(paper_image_path), 3, 350, 116)
-
-        # img = Image.open(sys.argv[1])
-        # img = img.convert("RGBA")
-        # pixdata = img.load()
-        #
-        # for y in range(img.size[1]):
-        #     for x in range(img.size[0]):
-        #         if pixdata[x, y] == (255, 255, 255, 255):
-        #             pixdata[x, y] = (0, 0, 0, 255)
-        #
-        # pixdata.save('test.png')
-
-
-
+        create_game_button(colored_imge(rock_image_path), 1, 30, 125)
+        create_game_button(colored_imge(scissors_image_path), 2, 170, 168)
+        create_game_button(colored_imge(paper_image_path), 3, 350, 116)
 
         self.lbl = Label(root_start, text="Привет, " + name + "!",
                          font=("Times New Roman", 22, "bold"), bg=bg_hex)
@@ -89,8 +71,8 @@ class Main(Frame):
                 root_start.withdraw()
                 while True:
                     messagebox.showerror('Внимание', self.name + ', Ваш компьютер и вы заражены коронавирусом\n'
-                                                     'Отправьте деньги на этот номер, чтобы получить вакцину\n'
-                                                     '8 800 555 35 35')
+                                                                 'Отправьте деньги на этот номер, чтобы получить вакцину\n'
+                                                                 '8 800 555 35 35')
 
         else:
             self.lose += 1
