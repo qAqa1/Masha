@@ -1,8 +1,10 @@
+import random
 from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
 from tkinter.ttk import Radiobutton
 import random as rdm
+from random import randrange
 
 import numpy as np
 from PIL import Image, ImageTk
@@ -127,6 +129,24 @@ class Hello(Frame):
         chk1.place(x=200, y=180, width=30, height=30)
         chk2.place(x=270, y=180, width=30, height=30)
 
+        def random_RGB():
+            return rdm.randint(0, 255)
+
+        def random_RGB_str():
+            return str(random_RGB())
+
+        colorTitle_Label = Label(root_hello, text="Цвет рук:", font=("Times New Roman", 14))
+        colorTitle_Label.place(x=130, y=210)
+
+        R_Label = Label(root_hello, text="R =", font=("Times New Roman", 14))
+        R_Label.place(x=130, y=240)
+
+        R_TextBox = Text(root_hello, width=3, height=1,
+                         font=("Times New Roman", 14), wrap="none")
+
+        R_TextBox.insert(INSERT, random_RGB_str())
+        R_TextBox.place(x=170, y=240)
+
         def startGame_click():
             input_text = self.inputNameTextBox.get(1.0, END).replace('\n', '')
             if input_text == '':
@@ -156,7 +176,7 @@ class Hello(Frame):
             app_start.mainloop()
 
         btn4 = Button(root_hello, text="Поехали", font=("Times New Roman", 15), command=startGame_click)
-        btn4.place(x=160, y=220, width=100, height=30)
+        btn4.place(x=160, y=280, width=100, height=30)
 
 
 def on_closing():
@@ -175,7 +195,7 @@ if __name__ == '__main__':
 
     root_hello = Tk()
     root_hello.iconbitmap("py1.ico")
-    root_hello.geometry("400x270+200+200")
+    root_hello.geometry("400x325+200+200")
     root_hello.title("Приветствие")
     root_hello.resizable(False, False)
 
