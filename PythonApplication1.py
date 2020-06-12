@@ -4,12 +4,10 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 from tkinter.ttk import Radiobutton
 import random as rdm
-from random import randrange
 
 import numpy as np
 from PIL import Image, ImageTk
 from os import path
-import sys
 
 replacement_color = (250, 0, 0, 255)
 
@@ -29,7 +27,7 @@ class Main(Frame):
 
         def colored_imge(image_path):
             global replacement_color
-            border = 127
+            border = 80
             orig_color = (border, border, border, 0)
             img = Image.open(image_path).convert('RGBA')
             data = np.array(img)
@@ -164,6 +162,9 @@ class Hello(Frame):
             def get_textbox_text(textbox):
                 return textbox.get(1.0, END)
 
+            def textbox_to_int(textbox):
+                return int(get_textbox_text(textbox))
+
             def is_RGB(s):
                 try:
                     chanel = int(s)
@@ -173,12 +174,20 @@ class Hello(Frame):
                 except ValueError:
                     return False
 
+            def is_RGB_textbox(text_box):
+                return is_RGB(get_textbox_text(text_box))
+
             input_text = get_textbox_text(self.inputNameTextBox).replace('\n', '')
             if input_text == '':
                 return
 
-            print(is_RGB(get_textbox_text(self.R_textBox)))
+            if not is_RGB_textbox(self.R_textBox) or not is_RGB_textbox(self.G_textBox) or not is_RGB_textbox(self.B_textBox):
+                messagebox.showerror("Ошибка ввода", "Цвет введён не корректно!")
+                return
 
+            global replacement_color
+            replacement_color = (textbox_to_int(self.R_textBox), textbox_to_int(self.G_textBox),
+                                 textbox_to_int(self.B_textBox), 255)
 
             color = combo1.get()
 
