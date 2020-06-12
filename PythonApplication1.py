@@ -17,12 +17,12 @@ class Main(Frame):
         self.startUI(name, bg_hex)
 
     def startUI(self, name, bg_hex):
-
-        orig_color = (255, 255, 255, 255)
-        replacement_color = (250, 0, 255, 255)
+        border = 127
+        orig_color = (border, border, border, 0)
+        replacement_color = (250, 0, 0, 255)
         img = Image.open("images\\rock.png").convert('RGBA')
         data = np.array(img)
-        data[(data == orig_color).all(axis=-1)] = replacement_color
+        data[(data > orig_color).all(axis=-1)] = replacement_color
         img2 = Image.fromarray(data, mode='RGBA')
         img2.show()
 
