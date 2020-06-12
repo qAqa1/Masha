@@ -3,7 +3,11 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 from tkinter.ttk import Radiobutton
 import random as rdm
+
+import numpy as np
 from PIL import Image, ImageTk
+import sys
+
 
 class Main(Frame):
     def __init__(self, main, name, bg_hex):
@@ -14,6 +18,14 @@ class Main(Frame):
 
     def startUI(self, name, bg_hex):
 
+        orig_color = (255, 255, 255)
+        replacement_color = (250, 255, 255)
+        img = Image.open("images\\rock.png").convert('RGB')
+        data = np.array(img)
+        data[(data == orig_color).all(axis=-1)] = replacement_color
+        img2 = Image.fromarray(data, mode='RGB')
+        img2.show()
+
         def create_game_button(image, click_value, x, width, y=200, height=120):
             btn = Button(root_start, image=image,
                          command=lambda x=click_value: self.btn_click(x))
@@ -21,7 +33,7 @@ class Main(Frame):
             btn.place(x=x, y=y, width=width, height=height)
 
         image = Image.open("images/rock.png")
-        photo = ImageTk.PhotoImage(image)
+        photo = ImageTk.PhotoImage(img2)
         create_game_button(photo, 1, 30, 125)
 
         image = Image.open("images/scissors.png")
@@ -30,7 +42,21 @@ class Main(Frame):
 
         image = Image.open("images/paper.png")
         photo = ImageTk.PhotoImage(image)
-        create_game_button(photo,3, 350, 116)
+        create_game_button(photo, 3, 350, 116)
+
+        # img = Image.open(sys.argv[1])
+        # img = img.convert("RGBA")
+        # pixdata = img.load()
+        #
+        # for y in range(img.size[1]):
+        #     for x in range(img.size[0]):
+        #         if pixdata[x, y] == (255, 255, 255, 255):
+        #             pixdata[x, y] = (0, 0, 0, 255)
+        #
+        # pixdata.save('test.png')
+
+
+
 
         self.lbl = Label(root_start, text="Привет, " + name + "!",
                          font=("Times New Roman", 22, "bold"), bg=bg_hex)
