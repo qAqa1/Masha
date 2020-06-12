@@ -143,11 +143,11 @@ class Hello(Frame):
             label = Label(root_hello, text=title+" =", font=("Times New Roman", 14))
             label.place(x=x_location, y=y_location)
 
-            textBox = Text(root_hello, width=3, height=1,
+            text_box = Text(root_hello, width=3, height=1,
                              font=("Times New Roman", 14), wrap="none")
 
-            textBox.insert(INSERT, random_RGB_str())
-            textBox.place(x=x_location+40, y=y_location)
+            text_box.insert(INSERT, random_RGB_str())
+            text_box.place(x=x_location+40, y=y_location)
 
         def x_RGB_input_location(number):
             start_x = 130
@@ -159,7 +159,20 @@ class Hello(Frame):
         create_RGB_input('B', x_RGB_input_location(2))
 
         def startGame_click():
-            input_text = self.inputNameTextBox.get(1.0, END).replace('\n', '')
+
+            def get_textbox_text(textbox):
+                return textbox.get(1.0, END)
+
+            def is_RGB(val):
+                if type(val) == int and 0 <= val <= 255:
+                    return True
+                else:
+                    if val.is_integer() and 0 <= val <= 255:
+                        return True
+                    else:
+                        return False
+
+            input_text = get_textbox_text(self.inputNameTextBox).replace('\n', '')
             if input_text == '':
                 return
 
