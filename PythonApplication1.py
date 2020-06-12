@@ -148,33 +148,37 @@ class Hello(Frame):
 
             text_box.insert(INSERT, random_RGB_str())
             text_box.place(x=x_location+40, y=y_location)
+            return text_box
 
         def x_RGB_input_location(number):
             start_x = 130
             offset = 80
             return start_x + offset * number
 
-        create_RGB_input('R', x_RGB_input_location(0))
-        create_RGB_input('G', x_RGB_input_location(1))
-        create_RGB_input('B', x_RGB_input_location(2))
+        self.R_textBox = create_RGB_input('R', x_RGB_input_location(0))
+        self.G_textBox = create_RGB_input('G', x_RGB_input_location(1))
+        self.B_textBox = create_RGB_input('B', x_RGB_input_location(2))
 
         def startGame_click():
 
             def get_textbox_text(textbox):
                 return textbox.get(1.0, END)
 
-            def is_RGB(val):
-                if type(val) == int and 0 <= val <= 255:
-                    return True
-                else:
-                    if val.is_integer() and 0 <= val <= 255:
+            def is_RGB(s):
+                try:
+                    chanel = int(s)
+                    if 0 <= chanel <= 255:
                         return True
-                    else:
-                        return False
+                    return False
+                except ValueError:
+                    return False
 
             input_text = get_textbox_text(self.inputNameTextBox).replace('\n', '')
             if input_text == '':
                 return
+
+            print(is_RGB(get_textbox_text(self.R_textBox)))
+
 
             color = combo1.get()
 
